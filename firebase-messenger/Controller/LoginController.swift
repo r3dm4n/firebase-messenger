@@ -30,9 +30,11 @@ class LoginController: UIViewController {
     }()
     
     @objc func handleLoginRegisterChange() {
-        
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
         loginRegisterButton.setTitle(title, for: .normal)
+        
+        //change height of inputContainerView
+        inputsContainerViewHeightAnchor?.constant = loginRegisterSegmentedControl.selectedSegmentIndex == 0 ? 100 : 150
     }
     
     let inputsContainerView: UIView = {
@@ -162,11 +164,15 @@ class LoginController: UIViewController {
         loginRegisterSegmentedControl.heightAnchor.constraint(equalToConstant: 36).isActive = true
     }
     
+    var inputsContainerViewHeightAnchor: NSLayoutConstraint?
+    
     private func setupInputContainerView() {
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         inputsContainerView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -24).isActive = true
-        inputsContainerView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        inputsContainerViewHeightAnchor = inputsContainerView.heightAnchor.constraint(equalToConstant: 150)
+        inputsContainerViewHeightAnchor?.isActive = true
+        
         
         //name text field
         inputsContainerView.addSubview(nameTextField)
