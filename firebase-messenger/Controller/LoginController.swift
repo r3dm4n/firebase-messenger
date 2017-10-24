@@ -32,7 +32,7 @@ class LoginController: UIViewController {
     lazy var loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 80, g: 101, b: 161)
-        button.setTitle("Register", for: .normal)
+        button.setTitle(REGISTER, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
@@ -54,8 +54,8 @@ class LoginController: UIViewController {
             guard let uid = User?.uid else { return }
             //successfully authtenticated user
             let ref = Database.database().reference()
-            let usersRef = ref.child("users").child(uid)
-            let values = ["name" : name, "email" : email]
+            let usersRef = ref.child(USERS).child(uid)
+            let values = [NAME : name, EMAIL : email]
             usersRef.updateChildValues(values, withCompletionBlock: { (err, ref) in
                 if err != nil {
                     print(err ?? "")
@@ -70,7 +70,7 @@ class LoginController: UIViewController {
     
     let nameTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Name"
+        tf.placeholder = PLACEHOLDER_NAME
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
         tf.spellCheckingType = .no
@@ -87,7 +87,7 @@ class LoginController: UIViewController {
     
     let emailTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Email"
+        tf.placeholder = PLACEHOLDER_EMAIL
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
         tf.spellCheckingType = .no
@@ -104,7 +104,7 @@ class LoginController: UIViewController {
     
     let passwordTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Passsword"
+        tf.placeholder = PLACEHOLDER_PASSWORD
         tf.isSecureTextEntry = true
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none

@@ -8,3 +8,14 @@
 
 import Foundation
 
+//Firebase DB
+let USERS = "users"
+let NAME = "name"
+let EMAIL = "email"
+
+//Strings
+
+let REGISTER = "Register"
+let PLACEHOLDER_NAME = "Name"
+let PLACEHOLDER_EMAIL = "Email"
+let PLACEHOLDER_PASSWORD = "Password"
