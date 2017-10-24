@@ -54,14 +54,22 @@
 		BE3B91E81F9F9B9A0051A543 /* firebase-messenger */ = {
 			isa = PBXGroup;
 			children = (
+				BE3B91FB1F9F9CE80051A543 /* Controller */,
 				BE3B91E91F9F9B9A0051A543 /* AppDelegate.swift */,
-				BE3B91EB1F9F9B9A0051A543 /* ViewController.swift */,
 				BE3B91ED1F9F9B9A0051A543 /* Main.storyboard */,
 				BE3B91F01F9F9B9A0051A543 /* Assets.xcassets */,
 				BE3B91F21F9F9B9A0051A543 /* LaunchScreen.storyboard */,
 				BE3B91F51F9F9B9A0051A543 /* Info.plist */,
 			);
 			path = "firebase-messenger";
+			sourceTree = "<group>";
+		};
+		BE3B91FB1F9F9CE80051A543 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				BE3B91EB1F9F9B9A0051A543 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
