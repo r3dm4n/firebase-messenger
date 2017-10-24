@@ -9,16 +9,19 @@
 import UIKit
 
 class ViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.title = "Firebase Chat App"
-
+        navigationItem.title = "Firebase Messenger"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+        
     }
-
- 
-
-
+    
+    @objc func handleLogout() {
+        present(LoginController(), animated: true, completion: nil)
+    }
+    
+    
 }
 
