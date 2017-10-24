@@ -15,7 +15,17 @@ let EMAIL = "email"
 
 //Strings
 
+let LOGIN = "Login"
 let REGISTER = "Register"
 let PLACEHOLDER_NAME = "Name"
 let PLACEHOLDER_EMAIL = "Email"
 let PLACEHOLDER_PASSWORD = "Password"
+
+
+
+
+
+
+
+
+
