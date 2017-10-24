@@ -20,13 +20,20 @@ class LoginController: UIViewController {
         
     }()
     
-    let loginRegisterSegmentedControl: UISegmentedControl = {
+    lazy var loginRegisterSegmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: [LOGIN, REGISTER])
         sc.tintColor = .white
         sc.selectedSegmentIndex = 1
+        sc.addTarget(self, action: #selector(handleLoginRegisterChange), for: .valueChanged)
         sc.translatesAutoresizingMaskIntoConstraints = false
         return sc
     }()
+    
+    @objc func handleLoginRegisterChange() {
+        
+        let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
+        loginRegisterButton.setTitle(title, for: .normal)
+    }
     
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -151,7 +158,7 @@ class LoginController: UIViewController {
     private func setupLoginRegisterSegmentedControl() {
         loginRegisterSegmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         loginRegisterSegmentedControl.bottomAnchor.constraint(equalTo: inputsContainerView.topAnchor, constant: -12).isActive = true
-        loginRegisterSegmentedControl.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 0.5).isActive = true
+        loginRegisterSegmentedControl.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1).isActive = true
         loginRegisterSegmentedControl.heightAnchor.constraint(equalToConstant: 36).isActive = true
     }
     
