@@ -76,7 +76,6 @@ class LoginController: UIViewController {
     }()
     
     @objc func handleRegister() {
-        
         guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text else { return }
             
         Auth.auth().createUser(withEmail: email, password: password) { (User, error) in
@@ -94,7 +93,7 @@ class LoginController: UIViewController {
                     print(err ?? "")
                     return
                 }
-                print("saved user to db")
+                self.dismiss(animated: true, completion: nil)
             })
             
         }
