@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4BE0B901F00B37FC4FE3C83A /* Pods_firebase_messenger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAEB3EA2C5482E4057155E13 /* Pods_firebase_messenger.framework */; };
 		BE1469031F9F9F0D00A7DF37 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE1469021F9F9F0D00A7DF37 /* GoogleService-Info.plist */; };
+		BE1469061F9FA7AC00A7DF37 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1469051F9FA7AC00A7DF37 /* Constants.swift */; };
 		BE3B91EA1F9F9B9A0051A543 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B91E91F9F9B9A0051A543 /* AppDelegate.swift */; };
 		BE3B91EC1F9F9B9A0051A543 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B91EB1F9F9B9A0051A543 /* ViewController.swift */; };
 		BE3B91EF1F9F9B9A0051A543 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE3B91ED1F9F9B9A0051A543 /* Main.storyboard */; };
@@ -21,6 +22,7 @@
 		6D696A506C20D59FEF462B76 /* Pods-firebase-messenger.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firebase-messenger.debug.xcconfig"; path = "Pods/Target Support Files/Pods-firebase-messenger/Pods-firebase-messenger.debug.xcconfig"; sourceTree = "<group>"; };
 		91F21DD5718D808FA32F68FA /* Pods-firebase-messenger.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-firebase-messenger.release.xcconfig"; path = "Pods/Target Support Files/Pods-firebase-messenger/Pods-firebase-messenger.release.xcconfig"; sourceTree = "<group>"; };
 		BE1469021F9F9F0D00A7DF37 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		BE1469051F9FA7AC00A7DF37 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BE3B91E61F9F9B9A0051A543 /* firebase-messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "firebase-messenger.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE3B91E91F9F9B9A0051A543 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE3B91EB1F9F9B9A0051A543 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BE1469041F9FA6E700A7DF37 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				BE1469051F9FA7AC00A7DF37 /* Constants.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		BE3B91DD1F9F9B9A0051A543 = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +92,7 @@
 		BE3B91E81F9F9B9A0051A543 /* firebase-messenger */ = {
 			isa = PBXGroup;
 			children = (
+				BE1469041F9FA6E700A7DF37 /* Utilities */,
 				BE3B91FB1F9F9CE80051A543 /* Controller */,
 				BE3B91E91F9F9B9A0051A543 /* AppDelegate.swift */,
 				BE3B91ED1F9F9B9A0051A543 /* Main.storyboard */,
@@ -241,6 +252,7 @@
 				BE3B91EC1F9F9B9A0051A543 /* ViewController.swift in Sources */,
 				BE3B91FD1F9F9D560051A543 /* LoginController.swift in Sources */,
 				BE3B91EA1F9F9B9A0051A543 /* AppDelegate.swift in Sources */,
+				BE1469061F9FA7AC00A7DF37 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

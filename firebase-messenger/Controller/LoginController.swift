@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginController: UIViewController {
     
@@ -28,15 +29,44 @@ class LoginController: UIViewController {
         return view
     }()
     
-    let loginRegisterButton: UIButton = {
+    lazy var loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 80, g: 101, b: 161)
         button.setTitle("Register", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        
+        button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
+        
         return button
     }()
+    
+    @objc func handleRegister() {
+        
+        guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text else { return }
+            
+        Auth.auth().createUser(withEmail: email, password: password) { (User, error) in
+            if error != nil {
+                print("Form is not valid")
+                return
+            }
+            guard let uid = User?.uid else { return }
+            //successfully authtenticated user
+            let ref = Database.database().reference()
+            let usersRef = ref.child("users").child(uid)
+            let values = ["name" : name, "email" : email]
+            usersRef.updateChildValues(values, withCompletionBlock: { (err, ref) in
+                if err != nil {
+                    print(err ?? "")
+                    return
+                }
+                print("saved user to db")
+            })
+            
+        }
+        
+    }
     
     let nameTextField: UITextField = {
         let tf = UITextField()
