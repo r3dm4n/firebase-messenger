@@ -19,6 +19,8 @@ class NewMessageController: UITableViewController {
         navigationItem.title = "NEW MESSAGE"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: CANCEL, style: .plain, target: self, action: #selector(handleCancel))
         
+        tableView.register(UserCell.self, forCellReuseIdentifier: NEW_MESSAGE_CELL_ID)
+        
         fetchUser()
       
     }
@@ -50,7 +52,7 @@ class NewMessageController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: NEW_MESSAGE_CELL_ID)
+        let cell = tableView.dequeueReusableCell(withIdentifier: NEW_MESSAGE_CELL_ID, for: indexPath) as! UserCell
         let user = users[indexPath.row]
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
