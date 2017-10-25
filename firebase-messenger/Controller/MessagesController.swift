@@ -11,17 +11,26 @@ import Firebase
 
 class MessagesController: UITableViewController {
     
+    private var isLoggedIn = Auth.auth().currentUser?.uid != nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: LOGOUT, style: .plain, target: self, action: #selector(handleLogout))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "new_message_icon"), style: .plain, target: self, action: #selector(handleNewMessage))
         
         checkIfUserIsLoggedIn()
     }
     
-    func checkIfUserIsLoggedIn() {
-        if Auth.auth().currentUser?.uid == nil {
+    @objc private func handleNewMessage() {
+        let newMessageController = NewMessageController()
+        let navController = UINavigationController(rootViewController: newMessageController)
+        present(navController, animated: true, completion: nil)
+    }
+    
+    private func checkIfUserIsLoggedIn() {
+        if !isLoggedIn {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
             guard let uid = Auth.auth().currentUser?.uid else { return }
@@ -35,7 +44,7 @@ class MessagesController: UITableViewController {
         }
     }
     
-    @objc func handleLogout() {
+    @objc private func handleLogout() {
         
         do {
             try Auth.auth().signOut()
