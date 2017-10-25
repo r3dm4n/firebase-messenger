@@ -31,8 +31,8 @@ class ViewController: UITableViewController {
         } catch let logoutError {
             print(logoutError)
         }
-        
-        present(LoginController(), animated: true, completion: nil)
+        let loginController = LoginController()
+        present(loginController, animated: true, completion: nil)
     }
     
     
