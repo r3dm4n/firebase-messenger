@@ -18,11 +18,13 @@ let EMAIL = "email"
 let APP_TITLE = "Firebase Messenger"
 let LOGIN = "Login"
 let LOGOUT = "Logout"
+let CANCEL = "Cancel"
 let REGISTER = "Register"
 let PLACEHOLDER_NAME = "Name"
 let PLACEHOLDER_EMAIL = "Email"
 let PLACEHOLDER_PASSWORD = "Password"
 
-
+//Cell id
+let NEW_MESSAGE_CELL_ID = "cellId"
 
 

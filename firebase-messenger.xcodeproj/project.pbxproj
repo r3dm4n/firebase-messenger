@@ -11,6 +11,7 @@
 		BE1469031F9F9F0D00A7DF37 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BE1469021F9F9F0D00A7DF37 /* GoogleService-Info.plist */; };
 		BE1469061F9FA7AC00A7DF37 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1469051F9FA7AC00A7DF37 /* Constants.swift */; };
 		BE206A671FA082A800B6AB12 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE206A661FA082A800B6AB12 /* NewMessageController.swift */; };
+		BE206A6A1FA08C6A00B6AB12 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE206A691FA08C6A00B6AB12 /* User.swift */; };
 		BE3B91EA1F9F9B9A0051A543 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B91E91F9F9B9A0051A543 /* AppDelegate.swift */; };
 		BE3B91EC1F9F9B9A0051A543 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B91EB1F9F9B9A0051A543 /* MessagesController.swift */; };
 		BE3B91EF1F9F9B9A0051A543 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE3B91ED1F9F9B9A0051A543 /* Main.storyboard */; };
@@ -26,6 +27,7 @@
 		BE1469021F9F9F0D00A7DF37 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BE1469051F9FA7AC00A7DF37 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BE206A661FA082A800B6AB12 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
+		BE206A691FA08C6A00B6AB12 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		BE3B91E61F9F9B9A0051A543 /* firebase-messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "firebase-messenger.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE3B91E91F9F9B9A0051A543 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE3B91EB1F9F9B9A0051A543 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -75,6 +77,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		BE206A681FA08C3A00B6AB12 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BE206A691FA08C6A00B6AB12 /* User.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		BE3B91DD1F9F9B9A0051A543 = {
 			isa = PBXGroup;
 			children = (
@@ -96,9 +106,10 @@
 		BE3B91E81F9F9B9A0051A543 /* firebase-messenger */ = {
 			isa = PBXGroup;
 			children = (
+				BE206A681FA08C3A00B6AB12 /* Model */,
+				BE3B91FB1F9F9CE80051A543 /* Controller */,
 				BED5C8411FA076F70014FCD8 /* Extensions */,
 				BE1469041F9FA6E700A7DF37 /* Utilities */,
-				BE3B91FB1F9F9CE80051A543 /* Controller */,
 				BE3B91E91F9F9B9A0051A543 /* AppDelegate.swift */,
 				BE3B91ED1F9F9B9A0051A543 /* Main.storyboard */,
 				BE3B91F01F9F9B9A0051A543 /* Assets.xcassets */,
@@ -112,8 +123,8 @@
 		BE3B91FB1F9F9CE80051A543 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				BE3B91EB1F9F9B9A0051A543 /* MessagesController.swift */,
 				BE3B91FC1F9F9D560051A543 /* LoginController.swift */,
+				BE3B91EB1F9F9B9A0051A543 /* MessagesController.swift */,
 				BE206A661FA082A800B6AB12 /* NewMessageController.swift */,
 			);
 			path = Controller;
@@ -269,6 +280,7 @@
 				BE3B91EA1F9F9B9A0051A543 /* AppDelegate.swift in Sources */,
 				BE1469061F9FA7AC00A7DF37 /* Constants.swift in Sources */,
 				BED5C8441FA0772F0014FCD8 /* UIColor.swift in Sources */,
+				BE206A6A1FA08C6A00B6AB12 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
