@@ -11,7 +11,7 @@ import Firebase
 
 class LoginController: UIViewController {
     
-    let logoImageView: UIImageView = {
+    private let logoImageView: UIImageView = {
         let logo = UIImageView()
         logo.image = #imageLiteral(resourceName: "gameofthrones_splash")
         logo.contentMode = .scaleAspectFit
@@ -20,7 +20,7 @@ class LoginController: UIViewController {
         
     }()
     
-    lazy var loginRegisterSegmentedControl: UISegmentedControl = {
+    private lazy var loginRegisterSegmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: [LOGIN, REGISTER])
         sc.tintColor = .white
         sc.selectedSegmentIndex = 1
@@ -29,7 +29,7 @@ class LoginController: UIViewController {
         return sc
     }()
     
-    @objc func handleLoginRegisterChange() {
+    @objc private func handleLoginRegisterChange() {
         let title = loginRegisterSegmentedControl.titleForSegment(at: loginRegisterSegmentedControl.selectedSegmentIndex)
         loginRegisterButton.setTitle(title, for: .normal)
         
@@ -53,7 +53,7 @@ class LoginController: UIViewController {
         
     }
     
-    let inputsContainerView: UIView = {
+    private let inputsContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,7 @@ class LoginController: UIViewController {
         return view
     }()
     
-    lazy var loginRegisterButton: UIButton = {
+    private lazy var loginRegisterButton: UIButton = {
         let button = UIButton(type: .system)
         button.backgroundColor = UIColor(r: 80, g: 101, b: 161)
         button.setTitle(REGISTER, for: .normal)
@@ -75,7 +75,26 @@ class LoginController: UIViewController {
         return button
     }()
     
-    @objc func handleRegister() {
+    private func handleLoginRegister() {
+        if loginRegisterSegmentedControl.selectedSegmentIndex == 0 {
+            handleLogin()
+        } else {
+            handleRegister()
+        }
+    }
+    
+    private func handleLogin() {
+         guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+        Auth.auth().signIn(withEmail: email, password: password) { (User, error) in
+            if error != nil {
+                print(error ?? "")
+                return
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    @objc private func handleRegister() {
         guard let name = nameTextField.text, let email = emailTextField.text, let password = passwordTextField.text else { return }
             
         Auth.auth().createUser(withEmail: email, password: password) { (User, error) in
@@ -100,7 +119,7 @@ class LoginController: UIViewController {
         
     }
     
-    let nameTextField: UITextField = {
+    private let nameTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = PLACEHOLDER_NAME
         tf.autocorrectionType = .no
@@ -110,14 +129,14 @@ class LoginController: UIViewController {
         return tf
     }()
     
-    let nameDividerView: UIView = {
+    private let nameDividerView: UIView = {
         let view = UIView()
         view.backgroundColor = .gray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let emailTextField: UITextField = {
+    private let emailTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = PLACEHOLDER_EMAIL
         tf.autocorrectionType = .no
@@ -127,14 +146,14 @@ class LoginController: UIViewController {
         return tf
     }()
     
-    let emailDividerView: UIView = {
+    private let emailDividerView: UIView = {
         let view = UIView()
         view.backgroundColor = .gray
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let passwordTextField: UITextField = {
+    private let passwordTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = PLACEHOLDER_PASSWORD
         tf.isSecureTextEntry = true
@@ -243,8 +262,3 @@ class LoginController: UIViewController {
     
 }
 
-extension UIColor {
-    convenience init(r: CGFloat, g: CGFloat, b: CGFloat) {
-        self.init(red: r/255, green: g/255, blue: b/255, alpha: 1)
-    }
-}
