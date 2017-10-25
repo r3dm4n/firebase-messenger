@@ -11,7 +11,7 @@ import Firebase
 
 class NewMessageController: UITableViewController {
     
-    let users = []()
+    private var users = [User]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +25,20 @@ class NewMessageController: UITableViewController {
     
     private func fetchUser() {
         Database.database().reference().child(USERS).observe(.childAdded, with: { (snapshot) in
-            print(snapshot)
+            if let dictionary = snapshot.value as? [String: Any] {
+                let user = User()
+                user.name = dictionary["name"] as? String
+                user.email = dictionary["email"] as? String
+                self.users.append(user)
+            
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+                
+                
+            }
         }, withCancel: nil)
+        
     }
     
     @objc private func handleCancel() {
@@ -34,12 +46,14 @@ class NewMessageController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return users.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: NEW_MESSAGE_CELL_ID)
-        cell.textLabel?.text = "test test test"
+        let user = users[indexPath.row]
+        cell.textLabel?.text = user.name
+        cell.detailTextLabel?.text = user.email
         return cell
     }
 
