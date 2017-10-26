@@ -13,7 +13,7 @@ class LoginController: UIViewController {
     
     private let logoImageView: UIImageView = {
         let logo = UIImageView()
-        logo.image = #imageLiteral(resourceName: "gameofthrones_splash")
+        logo.image = #imageLiteral(resourceName: "logo")
         logo.contentMode = .scaleAspectFit
         logo.translatesAutoresizingMaskIntoConstraints = false
         return logo
