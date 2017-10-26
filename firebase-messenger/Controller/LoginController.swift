@@ -11,14 +11,23 @@ import Firebase
 
 class LoginController: UIViewController {
     
-    private let logoImageView: UIImageView = {
-        let logo = UIImageView()
-        logo.image = #imageLiteral(resourceName: "logo")
-        logo.contentMode = .scaleAspectFit
-        logo.translatesAutoresizingMaskIntoConstraints = false
-        return logo
+    private lazy var profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "logo")
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView))
+        imageView.addGestureRecognizer(tapGesture)
+        imageView.isUserInteractionEnabled = true
+        
+        return imageView
     }()
+    
+    @objc private func handleSelectProfileImageView() {
+        print(123)
+    }
+    
     
     private lazy var loginRegisterSegmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: [LOGIN, REGISTER])
@@ -168,9 +177,9 @@ class LoginController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
-        
+
         view.addSubview(loginRegisterSegmentedControl)
-        view.addSubview(logoImageView)
+        view.addSubview(profileImageView)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         
@@ -185,10 +194,10 @@ class LoginController: UIViewController {
     }
     
     private func setupProfileImageView() {
-        logoImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        logoImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -10).isActive = true
-        logoImageView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        logoImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -10).isActive = true
+        profileImageView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
     private func setupLoginRegisterSegmentedControl() {
