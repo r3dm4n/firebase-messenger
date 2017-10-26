@@ -16,7 +16,7 @@ class NewMessageController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationItem.title = "NEW MESSAGE"
+        navigationItem.title = NEW_MESSAGE
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: CANCEL, style: .plain, target: self, action: #selector(handleCancel))
         
         tableView.register(UserCell.self, forCellReuseIdentifier: NEW_MESSAGE_CELL_ID)

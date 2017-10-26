@@ -15,6 +15,7 @@ let EMAIL = "email"
 
 //Strings
 
+let NEW_MESSAGE = "New Message"
 let APP_TITLE = "Firebase Messenger"
 let LOGIN = "Login"
 let LOGOUT = "Logout"
