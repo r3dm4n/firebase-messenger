@@ -11,17 +11,30 @@ import Firebase
 
 class LoginController: UIViewController {
     
+    var messagesController: MessagesController?
+    
+    
     var inputsContainerViewHeightAnchor: NSLayoutConstraint?
     var nameTextFieldHeightAnchor: NSLayoutConstraint?
     var emailTextFieldHeightAnchor: NSLayoutConstraint?
     var passwordTextFieldHeightAnchor: NSLayoutConstraint?
     
+    let backgroundImageGradinent: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        let topColor: UIColor = #colorLiteral(red: 0.9960784314, green: 0.9137254902, blue: 0.5098039216, alpha: 1)
+        let bottomColor: UIColor = #colorLiteral(red: 0.9137254902, green: 0.1176470588, blue: 0.3882352941, alpha: 1)
+        gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        
+        return gradientLayer
+    }()
+    
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = #imageLiteral(resourceName: "logo")
+        imageView.image = #imageLiteral(resourceName: "account")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView))
         imageView.addGestureRecognizer(tapGesture)
         imageView.isUserInteractionEnabled = true
@@ -38,7 +51,7 @@ class LoginController: UIViewController {
         return sc
     }()
     
-     let inputsContainerView: UIView = {
+    let inputsContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +66,8 @@ class LoginController: UIViewController {
         button.setTitle(REGISTER, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 5
+        button.clipsToBounds = true
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         
         button.addTarget(self, action: #selector(handleLoginRegister), for: .touchUpInside)
@@ -60,7 +75,7 @@ class LoginController: UIViewController {
         return button
     }()
     
-     let nameTextField: UITextField = {
+    let nameTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = PLACEHOLDER_NAME
         tf.autocorrectionType = .no
@@ -77,7 +92,7 @@ class LoginController: UIViewController {
         return view
     }()
     
-     let emailTextField: UITextField = {
+    let emailTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = PLACEHOLDER_EMAIL
         tf.autocorrectionType = .no
@@ -94,7 +109,7 @@ class LoginController: UIViewController {
         return view
     }()
     
-     let passwordTextField: UITextField = {
+    let passwordTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = PLACEHOLDER_PASSWORD
         tf.isSecureTextEntry = true
@@ -108,13 +123,13 @@ class LoginController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor(r: 61, g: 91, b: 151)
-
+        view.layer.addSublayer(gradientBackground)
         view.addSubview(loginRegisterSegmentedControl)
         view.addSubview(profileImageView)
         view.addSubview(inputsContainerView)
         view.addSubview(loginRegisterButton)
         
+        setupBackground()
         setupLoginRegisterSegmentedControl()
         setupProfileImageView()
         setupInputContainerView()
@@ -125,11 +140,26 @@ class LoginController: UIViewController {
         return .lightContent
     }
     
+    private let gradientBackground: CAGradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        let topColor: UIColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 0.9363996479)
+        let bottomColor: UIColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 1)
+        
+        return gradientLayer
+    }()
+    
+    private func setupBackground() {
+        gradientBackground.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)        
+    }
+    
     private func setupProfileImageView() {
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        profileImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -10).isActive = true
-        profileImageView.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -50).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 75).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 75).isActive = true
     }
     
     private func setupLoginRegisterSegmentedControl() {
@@ -138,7 +168,7 @@ class LoginController: UIViewController {
         loginRegisterSegmentedControl.widthAnchor.constraint(equalTo: inputsContainerView.widthAnchor, multiplier: 1).isActive = true
         loginRegisterSegmentedControl.heightAnchor.constraint(equalToConstant: 36).isActive = true
     }
-   
+    
     private func setupInputContainerView() {
         inputsContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         inputsContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
