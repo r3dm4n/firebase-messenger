@@ -121,7 +121,6 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 return
             }
             
-            
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -135,7 +134,7 @@ extension LoginController: UIImagePickerControllerDelegate, UINavigationControll
                 print(err ?? "")
                 return
             }
-            self.messagesController?.fetchUsersAndSetupNavBarTitles()
+            self.messagesController?.fetchUserAndSetupNavBarTitles()
             self.dismiss(animated: true, completion: nil)
         })
     }
