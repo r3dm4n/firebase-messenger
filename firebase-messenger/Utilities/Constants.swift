@@ -12,6 +12,10 @@ import Foundation
 let USERS = "users"
 let NAME = "name"
 let EMAIL = "email"
+let PROFILE_IMG_URL = "profileImageUrl"
+
+//Firebase Storage
+let PROFILE_IMAGES = "profile_images"
 
 //Strings
 
@@ -27,5 +31,8 @@ let PLACEHOLDER_PASSWORD = "Password"
 
 //Cell id
 let NEW_MESSAGE_CELL_ID = "cellId"
+
+let IMAGE_PICKER_EDITED_IMAGE = "UIImagePickerControllerEditedImage"
+let IMAGE_PICKER_ORIGINAL_IMAGE = "UIImagePickerControllerOriginalImage"
 
 

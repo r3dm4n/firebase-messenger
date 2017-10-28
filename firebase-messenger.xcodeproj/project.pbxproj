@@ -19,7 +19,9 @@
 		BE3B91F41F9F9B9A0051A543 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE3B91F21F9F9B9A0051A543 /* LaunchScreen.storyboard */; };
 		BE3B91FD1F9F9D560051A543 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B91FC1F9F9D560051A543 /* LoginController.swift */; };
 		BE9F545B1FA0B712006662E8 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F545A1FA0B712006662E8 /* UserCell.swift */; };
+		BE9F545D1FA1DC66006662E8 /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE9F545C1FA1DC66006662E8 /* LoginController+handlers.swift */; };
 		BED5C8441FA0772F0014FCD8 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BED5C8431FA0772F0014FCD8 /* UIColor.swift */; };
+		BEFBA0001FA3731E00E328B6 /* ImageViewDownloadUrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEFB9FFF1FA3731E00E328B6 /* ImageViewDownloadUrl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,7 +40,9 @@
 		BE3B91F51F9F9B9A0051A543 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE3B91FC1F9F9D560051A543 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		BE9F545A1FA0B712006662E8 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		BE9F545C1FA1DC66006662E8 /* LoginController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
 		BED5C8431FA0772F0014FCD8 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		BEFB9FFF1FA3731E00E328B6 /* ImageViewDownloadUrl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewDownloadUrl.swift; sourceTree = "<group>"; };
 		DAEB3EA2C5482E4057155E13 /* Pods_firebase_messenger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_firebase_messenger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -127,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				BE3B91FC1F9F9D560051A543 /* LoginController.swift */,
+				BE9F545C1FA1DC66006662E8 /* LoginController+handlers.swift */,
 				BE3B91EB1F9F9B9A0051A543 /* MessagesController.swift */,
 				BE206A661FA082A800B6AB12 /* NewMessageController.swift */,
 			);
@@ -145,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				BED5C8431FA0772F0014FCD8 /* UIColor.swift */,
+				BEFB9FFF1FA3731E00E328B6 /* ImageViewDownloadUrl.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -285,8 +291,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BEFBA0001FA3731E00E328B6 /* ImageViewDownloadUrl.swift in Sources */,
 				BE9F545B1FA0B712006662E8 /* UserCell.swift in Sources */,
 				BE3B91EC1F9F9B9A0051A543 /* MessagesController.swift in Sources */,
+				BE9F545D1FA1DC66006662E8 /* LoginController+handlers.swift in Sources */,
 				BE3B91FD1F9F9D560051A543 /* LoginController.swift in Sources */,
 				BE206A671FA082A800B6AB12 /* NewMessageController.swift in Sources */,
 				BE3B91EA1F9F9B9A0051A543 /* AppDelegate.swift in Sources */,
