@@ -12,6 +12,7 @@
 		BE1469061F9FA7AC00A7DF37 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE1469051F9FA7AC00A7DF37 /* Constants.swift */; };
 		BE206A671FA082A800B6AB12 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE206A661FA082A800B6AB12 /* NewMessageController.swift */; };
 		BE206A6A1FA08C6A00B6AB12 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE206A691FA08C6A00B6AB12 /* User.swift */; };
+		BE37A85B1FA4D6AF0041F197 /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE37A85A1FA4D6AF0041F197 /* ChatLogController.swift */; };
 		BE3B91EA1F9F9B9A0051A543 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B91E91F9F9B9A0051A543 /* AppDelegate.swift */; };
 		BE3B91EC1F9F9B9A0051A543 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3B91EB1F9F9B9A0051A543 /* MessagesController.swift */; };
 		BE3B91EF1F9F9B9A0051A543 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BE3B91ED1F9F9B9A0051A543 /* Main.storyboard */; };
@@ -31,6 +32,7 @@
 		BE1469051F9FA7AC00A7DF37 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BE206A661FA082A800B6AB12 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		BE206A691FA08C6A00B6AB12 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		BE37A85A1FA4D6AF0041F197 /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		BE3B91E61F9F9B9A0051A543 /* firebase-messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "firebase-messenger.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE3B91E91F9F9B9A0051A543 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BE3B91EB1F9F9B9A0051A543 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 				BE9F545C1FA1DC66006662E8 /* LoginController+handlers.swift */,
 				BE3B91EB1F9F9B9A0051A543 /* MessagesController.swift */,
 				BE206A661FA082A800B6AB12 /* NewMessageController.swift */,
+				BE37A85A1FA4D6AF0041F197 /* ChatLogController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				BE3B91EC1F9F9B9A0051A543 /* MessagesController.swift in Sources */,
 				BE9F545D1FA1DC66006662E8 /* LoginController+handlers.swift in Sources */,
 				BE3B91FD1F9F9D560051A543 /* LoginController.swift in Sources */,
+				BE37A85B1FA4D6AF0041F197 /* ChatLogController.swift in Sources */,
 				BE206A671FA082A800B6AB12 /* NewMessageController.swift in Sources */,
 				BE3B91EA1F9F9B9A0051A543 /* AppDelegate.swift in Sources */,
 				BE1469061F9FA7AC00A7DF37 /* Constants.swift in Sources */,
