@@ -16,22 +16,21 @@
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavBar()
+        fetchUser()
+        tableView.register(UserCell.self, forCellReuseIdentifier: NEW_MESSAGE_CELL_ID)
+
+    }
+    
+    private func setupNavBar() {
         navigationItem.title = NEW_MESSAGE
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: CANCEL, style: .plain, target: self, action: #selector(handleCancel))
-        
-        tableView.register(UserCell.self, forCellReuseIdentifier: NEW_MESSAGE_CELL_ID)
-        
-        fetchUser()
-        
     }
     
     private func fetchUser() {
         Database.database().reference().child(USERS).observe(.childAdded, with: { (snapshot) in
-            if let dictionary = snapshot.value as? [String: Any] {
-                let user = User()
-                user.name = dictionary["name"] as? String
-                user.email = dictionary["email"] as? String
-                user.profileImageUrl = dictionary["profileImageUrl"] as? String
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let user = User(dictionary: dictionary)
                 self.users.append(user)
                 
                 DispatchQueue.main.async {

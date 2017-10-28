@@ -33,19 +33,40 @@ class MessagesController: UITableViewController {
         if !isLoggedIn {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
-            fetchUsersAndSetupNavBarTitles()
+            fetchUserAndSetupNavBarTitles()
         }
     }
     
-    func fetchUsersAndSetupNavBarTitles() {
+    func fetchUserAndSetupNavBarTitles() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Database.database().reference().child(USERS).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             
-            if let dictionary = snapshot.value as? [String: Any] {
-                self.navigationItem.title = dictionary["name"] as? String
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let user = User(dictionary: dictionary)
+                self.setupNavBarWithUser(user: user)
             }
             
         }, withCancel: nil)
+    }
+    
+    func setupNavBarWithUser(user: User) {
+        let titleView = UIView()
+        titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+        titleView.backgroundColor = UIColor.red
+        
+        let profileImageView = UIImageView()
+        profileImageView.translatesAutoresizingMaskIntoConstraints = false
+        if let profileImageUrl = user.profileImageUrl {
+        profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
+        }
+        
+        titleView.addSubview(profileImageView)
+        profileImageView.leftAnchor.constraint(equalTo: titleView.leftAnchor).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        self.navigationItem.titleView = titleView
     }
     
     @objc private func handleLogout() {
