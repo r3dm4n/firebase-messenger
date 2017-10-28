@@ -33,7 +33,9 @@ class LoginController: UIViewController {
     lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "account")
-        imageView.contentMode = .scaleAspectFit
+        imageView.layer.cornerRadius = 40
+        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImageView))
         imageView.addGestureRecognizer(tapGesture)
@@ -158,8 +160,8 @@ class LoginController: UIViewController {
     private func setupProfileImageView() {
         profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profileImageView.bottomAnchor.constraint(equalTo: loginRegisterSegmentedControl.topAnchor, constant: -50).isActive = true
-        profileImageView.widthAnchor.constraint(equalToConstant: 75).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 80).isActive = true
     }
     
     private func setupLoginRegisterSegmentedControl() {
