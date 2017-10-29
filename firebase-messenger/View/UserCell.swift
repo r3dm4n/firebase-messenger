@@ -45,15 +45,27 @@ class UserCell: UITableViewCell {
         return imageView
     }()
     
+    let timeLabel: UILabel = {
+       let label = UILabel()
+        label.text = "HH:MM:SS"
+        label.textColor = .lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         addSubview(profileImageView)
+        addSubview(timeLabel)
         
         profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
         profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 48).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 48).isActive = true
         
+        timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 13).isActive = true
+        timeLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        timeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
