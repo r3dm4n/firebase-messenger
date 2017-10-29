@@ -17,6 +17,7 @@ let MESSAGES = "messages"
 let TEXT = "text"
 let FROM_ID = "fromId"
 let TO_ID = "toId"
+let TIMESTAMP = "timestamp"
 
 //Firebase Storage
 let PROFILE_IMAGES = "profile_images"

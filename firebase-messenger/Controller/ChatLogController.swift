@@ -71,9 +71,20 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         let childRef = ref.childByAutoId()
         let fromId = Auth.auth().currentUser?.uid
         let toId = user?.id
-        let values = [TEXT: inputTextField.text!, FROM_ID : fromId, TO_ID: toId ]
+        let values = [TEXT: inputTextField.text!,
+                      FROM_ID : fromId,
+                      TO_ID : toId,
+                      TIMESTAMP : getTimestamp()]
         childRef.updateChildValues(values)
         
+    }
+    
+    func getTimestamp() -> String {
+        let currentDate = Date()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:MM"
+        let convertedDate: String = dateFormatter.string(from: currentDate)
+        return convertedDate
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
