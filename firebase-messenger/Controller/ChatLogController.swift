@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Firebase
 
-class ChatLogController: UICollectionViewController {
+class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     
     private let bottomContainerView: UIView = {
         let view = UIView()
@@ -31,9 +32,10 @@ class ChatLogController: UICollectionViewController {
         return button
     }()
     
-    private let inputTextField: UITextField = {
+    private lazy var inputTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter message"
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -61,7 +63,16 @@ class ChatLogController: UICollectionViewController {
     }
     
     @objc private func handleSend() {
-        print(123)
+        let ref = Database.database().reference().child("messages")
+        let childRef = ref.childByAutoId()
+        let values = ["text": inputTextField.text!]
+        childRef.updateChildValues(values)
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        handleSend()
+        return true
     }
     
     private func setupBottomContainerView() {
@@ -88,5 +99,7 @@ class ChatLogController: UICollectionViewController {
         inputTextField.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
         inputTextField.widthAnchor.constraint(equalTo: bottomContainerView.widthAnchor, constant: -80).isActive = true
     }
+    
+  
 }
 
