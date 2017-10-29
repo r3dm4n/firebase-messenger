@@ -13,4 +13,12 @@ class Message: NSObject {
     var toId: String?
     var text: String?
     var timestamp: String?
+    
+    init(dictionary: [String: AnyObject]) {
+        self.fromId = dictionary[FROM_ID] as? String
+        self.toId = dictionary[TO_ID] as? String
+        self.text = dictionary[TEXT] as? String
+        self.timestamp = dictionary[TIMESTAMP] as? String
+    }
 }
+ 

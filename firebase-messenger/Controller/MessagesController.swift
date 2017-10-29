@@ -24,12 +24,31 @@ class MessagesController: UITableViewController {
         
         observeMessages()
     }
+    var messages = [Message]()
     
     private func observeMessages() {
         let ref = Database.database().reference().child(MESSAGES)
         ref.observe(.childAdded) { (snapshot) in
-            print(snapshot)
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+            let message = Message(dictionary: dictionary)
+            self.messages.append(message)
+            }
+            
+            self.tableView.reloadData()
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
+        
+        let message = messages[indexPath.row]
+        cell.textLabel?.text = message.text
+        return cell
     }
     
     @objc private func handleNewMessage() {
