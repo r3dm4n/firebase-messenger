@@ -50,47 +50,53 @@ class MessagesController: UITableViewController {
     }
     
     func setupNavBarWithUser(user: User) {
-        let titleView = UIView()
-        titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
-        titleView.backgroundColor = UIColor.red
+        let titleButton = UIButton()
+        titleButton.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
+        titleButton.translatesAutoresizingMaskIntoConstraints = false
         
-        let containerView = UIView()
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.addSubview(containerView)
         
         let profileImageView = UIImageView()
-        titleView.addSubview(profileImageView)
+        titleButton.addSubview(profileImageView)
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.layer.cornerRadius = 20
         profileImageView.clipsToBounds = true
         
-        containerView.addSubview(profileImageView)
+        titleButton.addSubview(profileImageView)
         
         if let profileImageUrl = user.profileImageUrl {
         profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
         }
         
-        profileImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-        profileImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        profileImageView.leftAnchor.constraint(equalTo: titleButton.leftAnchor).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
         
         let nameLabel = UILabel()
-        containerView.addSubview(nameLabel)
+        titleButton.addSubview(nameLabel)
 
         nameLabel.text = user.name
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
 
         nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
-        nameLabel.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        nameLabel.rightAnchor.constraint(equalTo: titleButton.rightAnchor).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalTo: profileImageView.heightAnchor).isActive = true
         
-        containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
-        containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
-        self.navigationItem.titleView = titleView
+        titleButton.centerXAnchor.constraint(equalTo: titleButton.centerXAnchor).isActive = true
+        titleButton.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor).isActive = true
+        self.navigationItem.titleView = titleButton
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showChatController))
+        titleButton.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func showChatController() {
+        print(123)
+        let chatLogController = ChatLogController()
+        navigationController?.pushViewController(chatLogController, animated: true)
     }
     
     @objc private func handleLogout() {
