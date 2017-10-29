@@ -27,6 +27,7 @@ class UserCell: UITableViewCell {
                 })
             }
             detailTextLabel?.text = message?.text
+            timeLabel.text = message?.timestamp
         }
     } 
     
@@ -48,7 +49,8 @@ class UserCell: UITableViewCell {
     let timeLabel: UILabel = {
        let label = UILabel()
         label.text = "HH:MM:SS"
-        label.textColor = .lightGray
+        label.textColor = .darkGray
+        label.font = UIFont.systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -63,9 +65,9 @@ class UserCell: UITableViewCell {
         profileImageView.widthAnchor.constraint(equalToConstant: 48).isActive = true
         profileImageView.heightAnchor.constraint(equalToConstant: 48).isActive = true
         
-        timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 13).isActive = true
+        timeLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 14).isActive = true
         timeLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        timeLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+        timeLabel.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {
