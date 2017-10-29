@@ -13,12 +13,17 @@ let USERS = "users"
 let NAME = "name"
 let EMAIL = "email"
 let PROFILE_IMG_URL = "profileImageUrl"
+let MESSAGES = "messages"
+let TEXT = "text"
+let FROM_ID = "fromId"
+let TO_ID = "toId"
 
 //Firebase Storage
 let PROFILE_IMAGES = "profile_images"
 
 //Strings
-
+let SEND = "Send"
+let ENTER_MESSAGE = "Enter message"
 let NEW_MESSAGE = "New Message"
 let APP_TITLE = "Firebase Messenger"
 let LOGIN = "Login"

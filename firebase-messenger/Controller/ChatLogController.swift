@@ -32,7 +32,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     
     private let sendButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Send", for: .normal)
+        button.setTitle(SEND, for: .normal)
         button.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -40,7 +40,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     
     private lazy var inputTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Enter message"
+        textField.placeholder = ENTER_MESSAGE
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -67,11 +67,11 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
     }
     
     @objc private func handleSend() {
-        let ref = Database.database().reference().child("messages")
+        let ref = Database.database().reference().child(MESSAGES)
         let childRef = ref.childByAutoId()
         let fromId = Auth.auth().currentUser?.uid
         let toId = user?.id
-        let values = ["text": inputTextField.text!, "fromId" : fromId, "toId": toId ]
+        let values = [TEXT: inputTextField.text!, FROM_ID : fromId, TO_ID: toId ]
         childRef.updateChildValues(values)
         
     }
