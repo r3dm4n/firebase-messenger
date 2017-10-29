@@ -12,17 +12,16 @@ import Firebase
 class MessagesController: UITableViewController {
     
     private var isLoggedIn = Auth.auth().currentUser?.uid != nil
+    let cellId = "cellId"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: LOGOUT, style: .plain, target: self, action: #selector(handleLogout))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "new_message_icon"), style: .plain, target: self, action: #selector(handleNewMessage))
-        
+        setupNavBarButtons()
         checkIfUserIsLoggedIn()
-        
         observeMessages()
+        
+        tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     }
     var messages = [Message]()
     
@@ -44,12 +43,25 @@ class MessagesController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
+//        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
         let message = messages[indexPath.row]
-        cell.textLabel?.text = message.toId
+        if let toId = message.toId  {
+            let ref = Database.database().reference().child(USERS).child(toId)
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    cell.textLabel?.text = dictionary[NAME] as? String
+                }
+                
+            })
+        }
         cell.detailTextLabel?.text = message.text
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 72
     }
     
     @objc private func handleNewMessage() {
@@ -67,6 +79,11 @@ class MessagesController: UITableViewController {
         }
     }
     
+    private func setupNavBarButtons() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: LOGOUT, style: .plain, target: self, action: #selector(handleLogout))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "new_message_icon"), style: .plain, target: self, action: #selector(handleNewMessage))
+    }
+    
     func fetchUserAndSetupNavBarTitles() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         Database.database().reference().child(USERS).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -79,8 +96,6 @@ class MessagesController: UITableViewController {
         }, withCancel: nil)
     }
     
-   
-    
     @objc func showChatControllerForUser(user: User) {
         let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
         chatLogController.user = user
@@ -88,7 +103,6 @@ class MessagesController: UITableViewController {
     }
     
     @objc private func handleLogout() {
-        
         do {
             try Auth.auth().signOut()
         } catch let logoutError {
