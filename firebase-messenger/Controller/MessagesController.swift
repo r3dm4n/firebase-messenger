@@ -25,6 +25,7 @@ class MessagesController: UITableViewController {
     
     @objc private func handleNewMessage() {
         let newMessageController = NewMessageController()
+        newMessageController.messagesController = self
         let navController = UINavigationController(rootViewController: newMessageController)
         present(navController, animated: true, completion: nil)
     }
@@ -49,6 +50,26 @@ class MessagesController: UITableViewController {
         }, withCancel: nil)
     }
     
+   
+    
+    @objc func showChatControllerForUser(user: User) {
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatLogController.user = user
+        navigationController?.pushViewController(chatLogController, animated: true)
+    }
+    
+    @objc private func handleLogout() {
+        
+        do {
+            try Auth.auth().signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
+        let loginController = LoginController()
+        loginController.messagesController = self
+        present(loginController, animated: true, completion: nil)
+    }
+    
     func setupNavBarWithUser(user: User) {
         let titleButton = UIButton()
         titleButton.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
@@ -65,7 +86,7 @@ class MessagesController: UITableViewController {
         titleButton.addSubview(profileImageView)
         
         if let profileImageUrl = user.profileImageUrl {
-        profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
+            profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
         }
         
         profileImageView.leftAnchor.constraint(equalTo: titleButton.leftAnchor).isActive = true
@@ -76,10 +97,10 @@ class MessagesController: UITableViewController {
         
         let nameLabel = UILabel()
         titleButton.addSubview(nameLabel)
-
+        
         nameLabel.text = user.name
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         nameLabel.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8).isActive = true
         nameLabel.rightAnchor.constraint(equalTo: titleButton.rightAnchor).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
@@ -88,27 +109,6 @@ class MessagesController: UITableViewController {
         titleButton.centerXAnchor.constraint(equalTo: titleButton.centerXAnchor).isActive = true
         titleButton.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor).isActive = true
         self.navigationItem.titleView = titleButton
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(showChatController))
-        titleButton.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc private func showChatController() {
-        print(123)
-        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
-        navigationController?.pushViewController(chatLogController, animated: true)
-    }
-    
-    @objc private func handleLogout() {
-        
-        do {
-            try Auth.auth().signOut()
-        } catch let logoutError {
-            print(logoutError)
-        }
-        let loginController = LoginController()
-        loginController.messagesController = self
-        present(loginController, animated: true, completion: nil)
     }
     
     
