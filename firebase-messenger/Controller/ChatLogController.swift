@@ -19,15 +19,15 @@ class ChatLogController: UICollectionViewController {
     private let separatorLineView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
-        
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let sendButton: UIButton = {
         let button = UIButton(type: .system)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Send", for: .normal)
+        button.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -60,7 +60,9 @@ class ChatLogController: UICollectionViewController {
         setupInputTextField(bottomContainerView: bottomContainerView)
     }
     
-   
+    @objc private func handleSend() {
+        print(123)
+    }
     
     private func setupBottomContainerView() {
         bottomContainerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -72,7 +74,7 @@ class ChatLogController: UICollectionViewController {
     private func setupSeparatorLineView(bottomContainerView: UIView) {
         separatorLineView.bottomAnchor.constraint(equalTo: bottomContainerView.topAnchor).isActive = true
         separatorLineView.widthAnchor.constraint(equalTo: bottomContainerView.widthAnchor).isActive = true
-        separatorLineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        separatorLineView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
     }
     
     private func setupSendButton(bottomContainerView: UIView) {
