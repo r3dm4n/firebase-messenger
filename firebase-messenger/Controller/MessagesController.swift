@@ -21,6 +21,15 @@ class MessagesController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "new_message_icon"), style: .plain, target: self, action: #selector(handleNewMessage))
         
         checkIfUserIsLoggedIn()
+        
+        observeMessages()
+    }
+    
+    private func observeMessages() {
+        let ref = Database.database().reference().child(MESSAGES)
+        ref.observe(.childAdded) { (snapshot) in
+            print(snapshot)
+        }
     }
     
     @objc private func handleNewMessage() {
