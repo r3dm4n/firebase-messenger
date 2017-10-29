@@ -47,7 +47,8 @@ class MessagesController: UITableViewController {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
         
         let message = messages[indexPath.row]
-        cell.textLabel?.text = message.text
+        cell.textLabel?.text = message.toId
+        cell.detailTextLabel?.text = message.text
         return cell
     }
     
