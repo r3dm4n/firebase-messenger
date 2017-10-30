@@ -68,6 +68,12 @@ class MessagesController: UITableViewController {
         return 72
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message = messages[indexPath.row]
+        let user = User(dictionary: <#T##[String : AnyObject]#>)
+        showChatControllerForUser(user: <#T##User#>)
+    }
+    
     @objc private func handleNewMessage() {
         let newMessageController = NewMessageController()
         newMessageController.messagesController = self
