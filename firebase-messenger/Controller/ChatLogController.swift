@@ -12,6 +12,7 @@ import Firebase
 class ChatLogController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
+    var messages = [Message]()
     
     var user: User? {
         didSet {
@@ -30,7 +31,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             messagesRef.observe(.value, with: { (snapshot) in
                 guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
                 let message = Message(dictionary: dictionary)
-                print(message.text)
+                self.messages.append(message)
+                self.collectionView?.reloadData()
             })
         }
     }
@@ -73,7 +75,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return messages.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
