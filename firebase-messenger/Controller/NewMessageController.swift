@@ -73,7 +73,6 @@
         dismiss(animated: true) {
             let user = self.users[indexPath.row]
             self.messagesController?.showChatControllerForUser(user: user)
-            print(user.name)
         }
     }
     

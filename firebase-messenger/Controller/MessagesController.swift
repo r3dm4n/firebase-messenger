@@ -11,6 +11,9 @@ import Firebase
 
 class MessagesController: UITableViewController {
     
+    var messages = [Message]()
+    var messagesDictionary = [String: Message]()
+
     private var isLoggedIn = Auth.auth().currentUser?.uid != nil
     let cellId = "cellId"
     
@@ -23,15 +26,22 @@ class MessagesController: UITableViewController {
         
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     }
-    var messages = [Message]()
     
     private func observeMessages() {
         let ref = Database.database().reference().child(MESSAGES)
         ref.observe(.childAdded) { (snapshot) in
             
             if let dictionary = snapshot.value as? [String: AnyObject] {
-            let message = Message(dictionary: dictionary)
-            self.messages.append(message)
+                let message = Message(dictionary: dictionary)
+                
+                if let toId = message.toId {
+                    self.messagesDictionary[toId] = message
+                    self.messages = Array(self.messagesDictionary.values)
+                }
+
+                    DispatchQueue.main.async(execute: {
+                    self.tableView.reloadData()
+                })
             }
             
             self.tableView.reloadData()
@@ -43,7 +53,7 @@ class MessagesController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! UserCell
         let message = messages[indexPath.row]
         cell.message = message
