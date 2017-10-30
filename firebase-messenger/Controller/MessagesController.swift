@@ -13,7 +13,7 @@ class MessagesController: UITableViewController {
     
     var messages = [Message]()
     var messagesDictionary = [String: Message]()
-
+    
     private var isLoggedIn = Auth.auth().currentUser?.uid != nil
     let cellId = "cellId"
     
@@ -22,29 +22,33 @@ class MessagesController: UITableViewController {
         
         setupNavBarButtons()
         checkIfUserIsLoggedIn()
-        observeMessages()
+        observeUserMessages()
         
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     }
     
-    private func observeMessages() {
-        let ref = Database.database().reference().child(MESSAGES)
+    private func observeUserMessages() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        
+        let ref = Database.database().reference().child(USER_MESSAGES).child(uid)
         ref.observe(.childAdded) { (snapshot) in
             
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                let message = Message(dictionary: dictionary)
-                
-                if let toId = message.toId {
-                    self.messagesDictionary[toId] = message
-                    self.messages = Array(self.messagesDictionary.values)
-                }
-
-                    DispatchQueue.main.async(execute: {
+            let messageId = snapshot.key
+            let messagesReference = Database.database().reference().child(MESSAGES).child(messageId)
+            print(messagesReference)
+            messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let dictionary = snapshot.value as? [String: AnyObject] {
+                    let message = Message(dictionary: dictionary)
+                    
+                    if let toId = message.toId {
+                        self.messagesDictionary[toId] = message
+                        self.messages = Array(self.messagesDictionary.values)
+                    }
                     self.tableView.reloadData()
-                })
-            }
-            
-            self.tableView.reloadData()
+                    
+                }
+                
+            })
         }
     }
     

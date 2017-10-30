@@ -10,6 +10,7 @@ import Foundation
 
 //Firebase DB
 let USERS = "users"
+let USER_MESSAGES = "user-messages"
 let NAME = "name"
 let EMAIL = "email"
 let PROFILE_IMG_URL = "profileImageUrl"
