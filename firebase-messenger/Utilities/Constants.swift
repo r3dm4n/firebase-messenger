@@ -7,6 +7,10 @@
 //
 
 import Foundation
+import Firebase
+
+//Firebase DB reference
+let BASE_REF = Database.database().reference()
 
 //Firebase DB
 let USERS = "users"

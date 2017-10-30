@@ -74,10 +74,12 @@ class MessagesController: UITableViewController {
         
         let ref = Database.database().reference().child(USERS).child(chatPartnerId)
         ref.observeSingleEvent(of: .value) { (snapshot) in
-            print(snapshot)
+            guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+            let user = User(dictionary: dictionary)
+            user.id = chatPartnerId
+            self.showChatControllerForUser(user: user)
         }
-        
-//        showChatControllerForUser(user: <#T##User#>)
+
     }
     
     @objc private func handleNewMessage() {

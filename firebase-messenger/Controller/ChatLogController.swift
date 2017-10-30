@@ -9,11 +9,29 @@
 import UIKit
 import Firebase
 
-class ChatLogController: UICollectionViewController, UITextFieldDelegate {
+class ChatLogController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
+    
+    let cellId = "cellId"
     
     var user: User? {
         didSet {
             navigationItem.title = user?.name
+            observeMessages()
+        }
+    }
+    
+    private func observeMessages() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let userMessagesRef = BASE_REF.child(USER_MESSAGES).child(uid)
+        
+        userMessagesRef.observe(.childAdded) { (snapshot) in
+            let messageId = snapshot.key
+            let messagesRef = BASE_REF.child(MESSAGES).child(messageId)
+            messagesRef.observe(.value, with: { (snapshot) in
+                guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+                let message = Message(dictionary: dictionary)
+                print(message.text)
+            })
         }
     }
     
@@ -50,9 +68,23 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         collectionView?.backgroundColor = .white
+        collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: cellId)
         setupInputComponents()
     }
     
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        cell.backgroundColor = .blue
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 80)
+    }
     private func setupInputComponents() {
         
         view.addSubview(bottomContainerView)
