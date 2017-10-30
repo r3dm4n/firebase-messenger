@@ -139,6 +139,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     private func setupBottomContainerView() {
+        bottomContainerView.backgroundColor = .white
         bottomContainerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         bottomContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         bottomContainerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
