@@ -13,8 +13,22 @@ class UserCell: UITableViewCell {
     
     var message: Message? {
         didSet {
-            if let toId = message?.toId  {
-                let ref = Database.database().reference().child(USERS).child(toId)
+            setupNameAndProfileImage()
+            detailTextLabel?.text = message?.text
+            timeLabel.text = message?.timestamp
+        }
+    }
+    
+    private func setupNameAndProfileImage() {
+        let chatPartnerId: String?
+        if message?.fromId == Auth.auth().currentUser?.uid {
+            chatPartnerId = message?.toId
+        } else {
+            chatPartnerId = message?.fromId
+        }
+        
+            if let id = chatPartnerId  {
+                let ref = Database.database().reference().child(USERS).child(id)
                 ref.observeSingleEvent(of: .value, with: { (snapshot) in
                     if let dictionary = snapshot.value as? [String: AnyObject] {
                         self.textLabel?.text = dictionary[NAME] as? String
@@ -26,10 +40,7 @@ class UserCell: UITableViewCell {
                     
                 })
             }
-            detailTextLabel?.text = message?.text
-            timeLabel.text = message?.timestamp
-        }
-    } 
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
