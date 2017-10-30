@@ -7,18 +7,29 @@
 //
 
 import Foundation
+import Firebase
+
+//Firebase DB reference
+let BASE_REF = Database.database().reference()
 
 //Firebase DB
 let USERS = "users"
+let USER_MESSAGES = "user-messages"
 let NAME = "name"
 let EMAIL = "email"
 let PROFILE_IMG_URL = "profileImageUrl"
+let MESSAGES = "messages"
+let TEXT = "text"
+let FROM_ID = "fromId"
+let TO_ID = "toId"
+let TIMESTAMP = "timestamp"
 
 //Firebase Storage
 let PROFILE_IMAGES = "profile_images"
 
 //Strings
-
+let SEND = "Send"
+let ENTER_MESSAGE = "Enter message"
 let NEW_MESSAGE = "New Message"
 let APP_TITLE = "Firebase Messenger"
 let LOGIN = "Login"
