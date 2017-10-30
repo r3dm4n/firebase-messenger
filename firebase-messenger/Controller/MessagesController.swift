@@ -22,7 +22,6 @@ class MessagesController: UITableViewController {
         
         setupNavBarButtons()
         checkIfUserIsLoggedIn()
-        observeUserMessages()
         
         tableView.register(UserCell.self, forCellReuseIdentifier: cellId)
     }
@@ -101,24 +100,15 @@ class MessagesController: UITableViewController {
         }, withCancel: nil)
     }
     
-    @objc func showChatControllerForUser(user: User) {
-        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
-        chatLogController.user = user
-        navigationController?.pushViewController(chatLogController, animated: true)
-    }
-    
-    @objc private func handleLogout() {
-        do {
-            try Auth.auth().signOut()
-        } catch let logoutError {
-            print(logoutError)
-        }
-        let loginController = LoginController()
-        loginController.messagesController = self
-        present(loginController, animated: true, completion: nil)
-    }
-    
     func setupNavBarWithUser(user: User) {
+        
+        messages.removeAll()
+        messagesDictionary.removeAll()
+        tableView.reloadData()
+        
+        observeUserMessages()
+
+        
         let titleButton = UIButton()
         titleButton.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
         titleButton.translatesAutoresizingMaskIntoConstraints = false
@@ -157,6 +147,23 @@ class MessagesController: UITableViewController {
         titleButton.centerXAnchor.constraint(equalTo: titleButton.centerXAnchor).isActive = true
         titleButton.centerYAnchor.constraint(equalTo: titleButton.centerYAnchor).isActive = true
         self.navigationItem.titleView = titleButton
+    }
+    
+    @objc func showChatControllerForUser(user: User) {
+        let chatLogController = ChatLogController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatLogController.user = user
+        navigationController?.pushViewController(chatLogController, animated: true)
+    }
+    
+    @objc private func handleLogout() {
+        do {
+            try Auth.auth().signOut()
+        } catch let logoutError {
+            print(logoutError)
+        }
+        let loginController = LoginController()
+        loginController.messagesController = self
+        present(loginController, animated: true, completion: nil)
     }
     
     
