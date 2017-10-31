@@ -21,28 +21,9 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         }
     }
     
-    private func observeMessages() {
-        guard let uid = Auth.auth().currentUser?.uid else { return }
-        let userMessagesRef = BASE_REF.child(USER_MESSAGES).child(uid)
-        
-        userMessagesRef.observe(.childAdded) { (snapshot) in
-            let messageId = snapshot.key
-            let messagesRef = BASE_REF.child(MESSAGES).child(messageId)
-            messagesRef.observe(.value, with: { (snapshot) in
-                guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
-                let message = Message(dictionary: dictionary)
-                
-                if message.chatPartnerId() == self.user?.id {
-                    self.messages.append(message)
-                    self.collectionView?.reloadData()
-                }
-             
-            })
-        }
-    }
-    
     private let bottomContainerView: UIView = {
         let view = UIView()
+        view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -79,6 +60,19 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         setupInputComponents()
     }
     
+    private func setupInputComponents() {
+        
+        view.addSubview(bottomContainerView)
+        view.addSubview(sendButton)
+        view.addSubview(inputTextField)
+        view.addSubview(separatorLineView)
+        
+        setupBottomContainerView()
+        setupSeparatorLineView(bottomContainerView: bottomContainerView)
+        setupSendButton(bottomContainerView: bottomContainerView)
+        setupInputTextField(bottomContainerView: bottomContainerView)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
@@ -94,17 +88,25 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 80)
     }
-    private func setupInputComponents() {
+    
+    private func observeMessages() {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        let userMessagesRef = BASE_REF.child(USER_MESSAGES).child(uid)
         
-        view.addSubview(bottomContainerView)
-        view.addSubview(sendButton)
-        view.addSubview(inputTextField)
-        view.addSubview(separatorLineView)
-        
-        setupBottomContainerView()
-        setupSeparatorLineView(bottomContainerView: bottomContainerView)
-        setupSendButton(bottomContainerView: bottomContainerView)
-        setupInputTextField(bottomContainerView: bottomContainerView)
+        userMessagesRef.observe(.childAdded) { (snapshot) in
+            let messageId = snapshot.key
+            let messagesRef = BASE_REF.child(MESSAGES).child(messageId)
+            messagesRef.observe(.value, with: { (snapshot) in
+                guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+                let message = Message(dictionary: dictionary)
+                
+                if message.chatPartnerId() == self.user?.id {
+                    self.messages.append(message)
+                    self.collectionView?.reloadData()
+                }
+                
+            })
+        }
     }
     
     @objc private func handleSend() {
@@ -146,7 +148,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     private func setupBottomContainerView() {
-        bottomContainerView.backgroundColor = .white
         bottomContainerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         bottomContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         bottomContainerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
