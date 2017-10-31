@@ -11,8 +11,9 @@ import Firebase
 
 class ChatLogController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
     
-    let cellId = "cellId"
-    var messages = [Message]()
+    private var containerViewBottomAnchor: NSLayoutConstraint?
+    private let cellId = "cellId"
+    private var messages = [Message]()
     
     var user: User? {
         didSet {
@@ -53,16 +54,39 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = .white
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
+        
         setupInputComponents()
+        
+        setupKeyboardObservers()
+    }
+    
+    private func setupKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+    }
+    
+    @objc func handleKeyboardWillShow(_ notification: Notification) {
+        let keyboardFrame = (notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
+        let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
+        
+        containerViewBottomAnchor?.constant = -keyboardFrame!.height
+        UIView.animate(withDuration: keyboardDuration!, animations: {
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @objc func handleKeyboardWillHide(_ notification: Notification) {
+        containerViewBottomAnchor?.constant = 0
     }
     
     private func setupInputComponents() {
-        
         view.addSubview(bottomContainerView)
         view.addSubview(sendButton)
         view.addSubview(inputTextField)
@@ -86,7 +110,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         //modify buuble's view width
         cell.bubbleViewWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
         setupCell(cell: cell, message: message)
-      
+        
         
         return cell
     }
@@ -175,7 +199,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         }
     }
     
-    func getTimestamp() -> String {
+    private func getTimestamp() -> String {
         let currentDate = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "HH:MM:ss"
@@ -188,9 +212,12 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         return true
     }
     
+    
     private func setupBottomContainerView() {
+        containerViewBottomAnchor = bottomContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        containerViewBottomAnchor?.isActive = true
+        
         bottomContainerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        bottomContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         bottomContainerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         bottomContainerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
@@ -213,6 +240,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         inputTextField.widthAnchor.constraint(equalTo: bottomContainerView.widthAnchor, constant: -80).isActive = true
     }
     
-  
+    
 }
 
