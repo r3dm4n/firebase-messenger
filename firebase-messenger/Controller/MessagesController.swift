@@ -29,18 +29,18 @@ class MessagesController: UITableViewController {
     private func observeUserMessages() {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         
-        let ref = Database.database().reference().child(USER_MESSAGES).child(uid)
+        let ref = BASE_REF.child(USER_MESSAGES).child(uid)
         ref.observe(.childAdded) { (snapshot) in
             
             let messageId = snapshot.key
-            let messagesReference = Database.database().reference().child(MESSAGES).child(messageId)
+            let messagesReference = BASE_REF.child(MESSAGES).child(messageId)
             print(messagesReference)
             messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     let message = Message(dictionary: dictionary)
                     
-                    if let toId = message.toId {
-                        self.messagesDictionary[toId] = message
+                    if let chatPartnerId = message.chatPartnerId() {
+                        self.messagesDictionary[chatPartnerId] = message
                         self.messages = Array(self.messagesDictionary.values)
                     }
                     self.tableView.reloadData()
