@@ -23,6 +23,8 @@ class ChatMessageCell: UICollectionViewCell {
     
     let bubbleView: UIView = {
         let view = UIView()
+        view.layer.cornerRadius = 16
+        view.layer.masksToBounds = true
         view.backgroundColor = UIColor(r: 0, g: 137, b: 249)
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -43,7 +45,7 @@ class ChatMessageCell: UICollectionViewCell {
     }
     
     private func setupBubbleView() {
-        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: 200)
         bubbleWidthAnchor?.isActive = true

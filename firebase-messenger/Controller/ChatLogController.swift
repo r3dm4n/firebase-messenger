@@ -53,7 +53,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = .white
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
@@ -83,7 +83,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         cell.textView.text = message.text
         
         //modify buuble's view width
-        cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width
+        cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
         
         return cell
     }
@@ -137,6 +137,8 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
                 print(error ?? "")
                 return
             }
+            
+            self.inputTextField.text = nil
             
             let userMessagesRef = Database.database().reference().child(USER_MESSAGES).child(fromId)
             let messageid = childRef.key
