@@ -84,7 +84,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         cell.textView.text = message.text
         
         //modify buuble's view width
-        cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
+        cell.bubbleViewWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
         setupCell(cell: cell, message: message)
       
         
@@ -92,13 +92,23 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     }
     
     private func setupCell(cell: ChatMessageCell, message: Message) {
+        
+        guard let profileImageUrl = self.user?.profileImageUrl else { return }
+        cell.profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
+        
         if message.fromId == CURRENT_USER?.uid {
             //outgoing blue messages
             cell.bubbleView.backgroundColor = BLUE_MESSAGE_COLOR
             cell.textView.textColor = .white
+            cell.profileImageView.isHidden = true
+            cell.bubbleViewRightAnchor?.isActive = true
+            cell.bubbleViewLeftAnchor?.isActive = false
             
         } else {
             //incoming grey messages
+            cell.profileImageView.isHidden = false
+            cell.bubbleViewRightAnchor?.isActive = false
+            cell.bubbleViewLeftAnchor?.isActive = true
             cell.bubbleView.backgroundColor = GRAY_MESSAGE_COLOR
             cell.textView.textColor = .black
         }

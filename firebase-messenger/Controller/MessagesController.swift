@@ -34,7 +34,7 @@ class MessagesController: UITableViewController {
             
             let messageId = snapshot.key
             let messagesReference = BASE_REF.child(MESSAGES).child(messageId)
-            print(messagesReference)
+            
             messagesReference.observeSingleEvent(of: .value, with: { (snapshot) in
                 if let dictionary = snapshot.value as? [String: AnyObject] {
                     let message = Message(dictionary: dictionary)
@@ -44,9 +44,7 @@ class MessagesController: UITableViewController {
                         self.messages = Array(self.messagesDictionary.values)
                     }
                     self.tableView.reloadData()
-                    
                 }
-                
             })
         }
     }

@@ -10,7 +10,9 @@ import UIKit
 
 class ChatMessageCell: UICollectionViewCell {
     
-    var bubbleWidthAnchor: NSLayoutConstraint?
+    var bubbleViewWidthAnchor: NSLayoutConstraint?
+    var bubbleViewRightAnchor: NSLayoutConstraint?
+    var bubbleViewLeftAnchor: NSLayoutConstraint?
     
     let textView: UITextView = {
         let tv = UITextView()
@@ -63,10 +65,14 @@ class ChatMessageCell: UICollectionViewCell {
     }
     
     private func setupBubbleView() {
-        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
+        bubbleViewRightAnchor = bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
+        bubbleViewRightAnchor?.isActive = true
+        bubbleViewLeftAnchor = bubbleView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
+    
+        
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: 200)
-        bubbleWidthAnchor?.isActive = true
+        bubbleViewWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: 200)
+        bubbleViewWidthAnchor?.isActive = true
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
     
