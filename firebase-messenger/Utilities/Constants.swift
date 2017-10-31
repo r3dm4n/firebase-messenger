@@ -9,7 +9,8 @@
 import Foundation
 import Firebase
 
-//Firebase DB reference
+//Firebase
+let CURRENT_USER = Auth.auth().currentUser
 let BASE_REF = Database.database().reference()
 
 //Firebase DB
@@ -45,5 +46,9 @@ let NEW_MESSAGE_CELL_ID = "cellId"
 
 let IMAGE_PICKER_EDITED_IMAGE = "UIImagePickerControllerEditedImage"
 let IMAGE_PICKER_ORIGINAL_IMAGE = "UIImagePickerControllerOriginalImage"
+
+//MESSAGE COLORS
+let BLUE_MESSAGE_COLOR = UIColor(r: 0, g: 137, b: 249)
+let GRAY_MESSAGE_COLOR = UIColor(r: 240, g: 240, b: 240)
 
 

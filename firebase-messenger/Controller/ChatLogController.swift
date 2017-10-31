@@ -85,8 +85,22 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         
         //modify buuble's view width
         cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
+        setupCell(cell: cell, message: message)
+      
         
         return cell
+    }
+    
+    private func setupCell(cell: ChatMessageCell, message: Message) {
+        if message.fromId == CURRENT_USER?.uid {
+            //outgoing blue messages
+            cell.bubbleView.backgroundColor = BLUE_MESSAGE_COLOR
+            cell.textView.textColor = .white
+        } else {
+            //incoming grey messages
+            cell.bubbleView.backgroundColor = GRAY_MESSAGE_COLOR
+            cell.textView.textColor = .black
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
