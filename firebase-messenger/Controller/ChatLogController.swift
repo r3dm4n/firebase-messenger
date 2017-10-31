@@ -96,6 +96,7 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
             //outgoing blue messages
             cell.bubbleView.backgroundColor = BLUE_MESSAGE_COLOR
             cell.textView.textColor = .white
+            
         } else {
             //incoming grey messages
             cell.bubbleView.backgroundColor = GRAY_MESSAGE_COLOR

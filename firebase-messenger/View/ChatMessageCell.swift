@@ -21,6 +21,16 @@ class ChatMessageCell: UICollectionViewCell {
         return tv
     }()
     
+    let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "nedstark")
+        imageView.layer.cornerRadius = 16
+        imageView.layer.masksToBounds = true
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     let bubbleView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 16
@@ -34,13 +44,22 @@ class ChatMessageCell: UICollectionViewCell {
         
         
         addSubview(bubbleView)
+        addSubview(profileImageView)
         addSubview(textView)
         setupBubbleView()
+        setupProfileImageView()
         setupTextView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setupProfileImageView() {
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 32).isActive = true
     }
     
     private func setupBubbleView() {
@@ -54,7 +73,7 @@ class ChatMessageCell: UICollectionViewCell {
     private func setupTextView() {
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 8).isActive = true
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-//        textView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        //        textView.widthAnchor.constraint(equalToConstant: 200).isActive = true
         textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
