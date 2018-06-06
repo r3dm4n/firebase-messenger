@@ -55,15 +55,38 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView?.keyboardDismissMode = .interactive
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         collectionView?.alwaysBounceVertical = true
         collectionView?.backgroundColor = .white
         collectionView?.register(ChatMessageCell.self, forCellWithReuseIdentifier: cellId)
         
-        setupInputComponents()
+        //        setupKeyboardObservers()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private lazy var inputContainerView: UIView = {
+        let containerView = UIView()
+        containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
+        containerView.backgroundColor = .white
         
-        setupKeyboardObservers()
+        setupInputComponents()
+        return containerView
+    }()
+    
+    override var inputAccessoryView: UIView? {
+        get {
+            return inputContainerView
+        }
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
     }
     
     private func setupKeyboardObservers() {
@@ -77,13 +100,16 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
         
         containerViewBottomAnchor?.constant = -keyboardFrame!.height
-        UIView.animate(withDuration: keyboardDuration!, animations: {
-            self.view.layoutIfNeeded()
-        })
+        UIView.animate(withDuration: keyboardDuration!, animations: { self.view.layoutIfNeeded() })
     }
     
     @objc func handleKeyboardWillHide(_ notification: Notification) {
         containerViewBottomAnchor?.constant = 0
+        
+        let keyboardDuration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue
+        
+        containerViewBottomAnchor?.constant = 0
+        UIView.animate(withDuration: keyboardDuration!, animations: { self.view.layoutIfNeeded() })
     }
     
     private func setupInputComponents() {
@@ -110,7 +136,6 @@ class ChatLogController: UICollectionViewController, UITextFieldDelegate, UIColl
         //modify buuble's view width
         cell.bubbleViewWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
         setupCell(cell: cell, message: message)
-        
         
         return cell
     }

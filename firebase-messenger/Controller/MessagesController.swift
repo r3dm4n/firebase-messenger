@@ -133,7 +133,7 @@ class MessagesController: UITableViewController {
         profileImageView.layer.cornerRadius = 20
         profileImageView.clipsToBounds = true
         
-        titleButton.addSubview(profileImageView)
+        
         
         if let profileImageUrl = user.profileImageUrl {
             profileImageView.loadImageUsingCacheWithUrlString(profileImageUrl)
